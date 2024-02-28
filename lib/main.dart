@@ -1,43 +1,57 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter App Learning',
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        home: MyHomePage());
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key}) : super(key: key);
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
+  List<String> images = [
+    "assets/images/Sandia-1.png",
+    "assets/images/Manzana.jpg",
+    "assets/images/Limon.png",
+    "assets/images/Platano.png",
+    "assets/images/Melon.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+        appBar: AppBar(
+          title: Text("ListView Daniel"),
         ),
-      ),
-    );
+        body: ListView.builder(
+          itemBuilder: (BuildContext, index) {
+            return Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(images[index]),
+                ),
+                title: Text("Esto es un titulo"),
+                subtitle: Text("Esto es un subtitulo"),
+              ),
+            );
+          },
+          itemCount: images.length,
+          shrinkWrap: true,
+          padding: EdgeInsets.all(5),
+          scrollDirection: Axis.vertical,
+        ));
   }
 }
